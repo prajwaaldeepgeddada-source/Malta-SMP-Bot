@@ -1,0 +1,54 @@
+[Unit]
+Description=Malta SMP Discord Bot
+Documentation=https://github.com/your-repo/Malta-SMP-Bot
+# Start after network is fully up (important — bot needs internet for Discord API)
+After=network-online.target
+Wants=network-online.target
+# Restart if the process dies
+StartLimitIntervalSec=120
+StartLimitBurst=5
+
+[Service]
+# ── User/Group ─────────────────────────────────────────────────────────────
+# Run as a dedicated non-root user for security.
+# Create it with: sudo useradd -r -s /bin/false maltabot
+User=maltabot
+Group=maltabot
+
+# ── Working directory ───────────────────────────────────────────────────────
+# CHANGE THIS to the actual path where you cloned/uploaded the bot.
+WorkingDirectory=/home/maltabot/Malta-SMP-Bot
+
+# ── Start command ───────────────────────────────────────────────────────────
+# Use the full path to the venv python so the service works without PATH tricks.
+ExecStart=/home/maltabot/Malta-SMP-Bot/venv/bin/python main.py
+
+# ── Restart policy ──────────────────────────────────────────────────────────
+Restart=on-failure
+RestartSec=10s
+
+# ── Logging ────────────────────────────────────────────────────────────────
+# stdout/stderr both captured by systemd journal (journalctl -u malta-bot -f)
+# The bot also writes its own log to logs/bot.log inside WorkingDirectory.
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=malta-bot
+
+# ── Environment ────────────────────────────────────────────────────────────
+# The bot loads secrets from .env via python-dotenv automatically.
+# You can also set variables directly here if preferred:
+# Environment=DISCORD_TOKEN=your_token_here
+
+# ── Security hardening (optional but recommended) ───────────────────────────
+# Prevent the bot process from escalating privileges
+NoNewPrivileges=true
+# Give the process a private /tmp
+PrivateTmp=true
+# Protect system directories from writes
+ProtectSystem=strict
+# Allow writes only to the bot directory and logs
+ReadWritePaths=/home/maltabot/Malta-SMP-Bot
+
+[Install]
+# Enable with: sudo systemctl enable malta-bot
+WantedBy=multi-user.target
