@@ -1,0 +1,17 @@
+{
+  "bot_name": "Malta SMP",
+  "version": "1.0.0",
+  "default_inactivity_days": 7,
+  "default_spam_threshold": 7,
+  "default_spam_window": 5,
+  "default_mention_threshold": 5,
+  "default_emoji_threshold": 10,
+  "default_raid_threshold": 10,
+  "default_raid_window": 10,
+  "colors": {
+    "success": 3066993,
+    "error": 15158332,
+    "warning": 16027660,
+    "info": 3447003
+  }
+}
