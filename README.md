@@ -52,7 +52,7 @@ Edit `.env` and fill in your values:
 ```env
 DISCORD_TOKEN=your_discord_bot_token_here
 GITHUB_TOKEN=your_github_token_here
-GITHUB_MODEL=openai/gpt-4o
+GITHUB_MODEL=gpt-4o
 ```
 
 ### 4. Run
